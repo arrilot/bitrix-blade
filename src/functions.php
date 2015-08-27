@@ -2,7 +2,7 @@
 
 use Arrilot\BitrixBlade\BladeProvider;
 
-if (! function_exists('renderBladeTemplate')) {
+if (!function_exists('renderBladeTemplate')) {
     /**
      * Render blade template callback.
      *
@@ -29,15 +29,15 @@ if (! function_exists('renderBladeTemplate')) {
             'parentTemplateFolder'
         ))->render();
 
-        $epilogue = $templateFolder . "/component_epilog.php";
-        if(file_exists($_SERVER["DOCUMENT_ROOT"].$epilogue)) {
+        $epilogue = $templateFolder.'/component_epilog.php';
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].$epilogue)) {
             $component = $template->__component;
             $component->SetTemplateEpilog([
-                'epilogFile' => $epilogue,
-                'templateName' => $template->__name,
-                'templateFile' => $template->__file,
+                'epilogFile'     => $epilogue,
+                'templateName'   => $template->__name,
+                'templateFile'   => $template->__file,
                 'templateFolder' => $template->__folder,
-                'templateData' => false,
+                'templateData'   => false,
             ]);
         }
     }
