@@ -20,13 +20,17 @@ if (!function_exists('renderBladeTemplate')) {
     {
         $view = BladeProvider::getViewFactory();
 
+        global $APPLICATION, $USER;
+
         echo $view->file($_SERVER['DOCUMENT_ROOT'].$templateFile, compact(
             'arParams',
             'arResult',
             'arLangMessages',
             'template',
             'templateFolder',
-            'parentTemplateFolder'
+            'parentTemplateFolder',
+            'APPLICATION',
+            'USER'
         ))->render();
 
         $epilogue = $templateFolder.'/component_epilog.php';
