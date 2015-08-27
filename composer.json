@@ -13,11 +13,15 @@
   ],
   "homepage": "https://github.com/Arrilot/bitrix-blade",
   "require": {
-    "php": ">=5.4.0"
+    "php": ">=5.4.0",
+    "philo/laravel-blade": "^3.0"
   },
   "autoload": {
     "psr-4": {
       "Arrilot\\BitrixBlade\\": "src/"
-    }
+    },
+    "files": [
+      "src/functions.php"
+    ]
   }
 }
