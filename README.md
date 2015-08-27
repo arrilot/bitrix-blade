@@ -4,9 +4,8 @@
 
 1)```composer require arrilot/bitrix-blade```
 
-2) добавдяем в init.php
+2) добавляем в init.php
 
-Теперь можно создавать свои модели, наследуя их либо от 
 ```php
 require $_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php";
 
