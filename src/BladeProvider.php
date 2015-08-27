@@ -30,7 +30,6 @@ class BladeProvider
             'templateExt' => ['blade'],
             'function'    => 'renderBladeTemplate',
         ];
-
     }
 
     /**
