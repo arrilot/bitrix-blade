@@ -2,10 +2,17 @@
 
 namespace Arrilot\BitrixBlade;
 
-use Philo\Blade\Blade;
+use Illuminate\Container\Container;
 
 class BladeProvider
 {
+    /**
+     * Path to a folder view common view can be stored.
+     *
+     * @var string
+     */
+    protected static $baseViewPath;
+
     /**
      * Local path to blade cache storage.
      *
@@ -16,14 +23,14 @@ class BladeProvider
     /**
      * Register blade engine in Bitrix.
      *
+     * @param string $baseViewPath
      * @param string $cachePath
-     *
-     * @return void
      */
-    public static function register($cachePath = 'bitrix/cache/blade')
+    public static function register($baseViewPath = 'local/views', $cachePath = 'bitrix/cache/blade')
     {
         global $arCustomTemplateEngines;
 
+        self::$baseViewPath = $baseViewPath;
         self::$cachePath = $cachePath;
 
         $arCustomTemplateEngines['blade'] = [
@@ -39,13 +46,35 @@ class BladeProvider
      */
     public static function getViewFactory()
     {
-        $cache = $_SERVER['DOCUMENT_ROOT'].'/'.self::$cachePath;
+        $cache = $_SERVER['DOCUMENT_ROOT'].'/'.static::$cachePath;
+        $viewPaths = [
+            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath
+        ];
 
-        $blade = new Blade(false, $cache);
+        $blade = new Blade($viewPaths, $cache);
 
         $view = $blade->view();
         $view->addExtension('blade', 'blade');
 
         return $view;
+    }
+
+
+    /**
+     * Update paths where blade tries to find additional views.
+     *
+     * @param string $templateDir
+     *
+     * @return void
+     */
+    public static function updateViewPaths($templateDir)
+    {
+        $newPaths = [
+            $_SERVER['DOCUMENT_ROOT'].$templateDir,
+            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath
+        ];
+
+        $finder = Container::getInstance()->make('view.finder');
+        $finder->setPaths($newPaths);
     }
 }

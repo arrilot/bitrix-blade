@@ -1,6 +1,7 @@
 <?php
 
 use Arrilot\BitrixBlade\BladeProvider;
+use Illuminate\Container\Container;
 
 if (!function_exists('renderBladeTemplate')) {
     /**
@@ -19,6 +20,8 @@ if (!function_exists('renderBladeTemplate')) {
     function renderBladeTemplate($templateFile, $arResult, $arParams, $arLangMessages, $templateFolder, $parentTemplateFolder, $template)
     {
         $view = BladeProvider::getViewFactory();
+
+        BladeProvider::updateViewPaths($template->__folder);
 
         global $APPLICATION, $USER;
 
