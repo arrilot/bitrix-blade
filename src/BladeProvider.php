@@ -21,6 +21,20 @@ class BladeProvider
     protected static $cachePath;
 
     /**
+     * View factory.
+     *
+     * @var Illuminate\View\Factory
+     */
+    protected static $viewFactory;
+
+    /**
+     * Service container factory.
+     *
+     * @var Illuminate\Container\Container
+     */
+    protected static $container;
+
+    /**
      * Register blade engine in Bitrix.
      *
      * @param string $baseViewPath
@@ -28,11 +42,13 @@ class BladeProvider
      */
     public static function register($baseViewPath = 'local/views', $cachePath = 'bitrix/cache/blade')
     {
+        static::$baseViewPath = $baseViewPath;
+        static::$cachePath = $cachePath;
+
+        static::instantiateServiceContainer();
+        static::instantiateViewFactory();
+
         global $arCustomTemplateEngines;
-
-        self::$baseViewPath = $baseViewPath;
-        self::$cachePath = $cachePath;
-
         $arCustomTemplateEngines['blade'] = [
             'templateExt' => ['blade'],
             'function'    => 'renderBladeTemplate',
@@ -46,25 +62,13 @@ class BladeProvider
      */
     public static function getViewFactory()
     {
-        $cache = $_SERVER['DOCUMENT_ROOT'].'/'.static::$cachePath;
-        $viewPaths = [
-            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath,
-        ];
-
-        $blade = new Blade($viewPaths, $cache);
-
-        $view = $blade->view();
-        $view->addExtension('blade', 'blade');
-
-        return $view;
+        return static::$viewFactory;
     }
 
     /**
      * Update paths where blade tries to find additional views.
      *
      * @param string $templateDir
-     *
-     * @return void
      */
     public static function updateViewPaths($templateDir)
     {
@@ -75,5 +79,36 @@ class BladeProvider
 
         $finder = Container::getInstance()->make('view.finder');
         $finder->setPaths($newPaths);
+    }
+
+    /**
+     * Instantiate service container if it's not instantiated yet.
+     */
+    protected static function instantiateServiceContainer()
+    {
+        $container = Container::getInstance();
+
+        if (!$container) {
+            $container = new Container();
+            Container::setInstance($container);
+        }
+
+        static::$container = $container;
+    }
+
+    /**
+     * Instantiate view factory.
+     */
+    protected static function instantiateViewFactory()
+    {
+        $viewPaths = [
+            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath,
+        ];
+        $cache = $_SERVER['DOCUMENT_ROOT'].'/'.static::$cachePath;
+
+        $blade = new Blade($viewPaths, $cache, static::$container);
+
+        static::$viewFactory = $blade->view();
+        static::$viewFactory->addExtension('blade', 'blade');
     }
 }
