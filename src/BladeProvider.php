@@ -3,6 +3,7 @@
 namespace Arrilot\BitrixBlade;
 
 use Illuminate\Container\Container;
+use Illuminate\Contracts\View\Factory;
 
 class BladeProvider
 {
@@ -23,14 +24,14 @@ class BladeProvider
     /**
      * View factory.
      *
-     * @var Illuminate\View\Factory
+     * @var Factory
      */
     protected static $viewFactory;
 
     /**
      * Service container factory.
      *
-     * @var Illuminate\Container\Container
+     * @var Container
      */
     protected static $container;
 
@@ -58,7 +59,7 @@ class BladeProvider
     /**
      * Get view factory.
      *
-     * @return Illuminate\View\Factory
+     * @return Factory
      */
     public static function getViewFactory()
     {

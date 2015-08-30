@@ -10,7 +10,7 @@ class BladeCompiler extends BaseCompiler
      * Compile the given Blade template contents.
      *
      * @param string $value
-     * 
+     *
      * @return string
      */
     public function compileString($value)
