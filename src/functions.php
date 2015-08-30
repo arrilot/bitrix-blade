@@ -1,7 +1,6 @@
 <?php
 
 use Arrilot\BitrixBlade\BladeProvider;
-use Illuminate\Container\Container;
 
 if (!function_exists('renderBladeTemplate')) {
     /**

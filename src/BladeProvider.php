@@ -48,7 +48,7 @@ class BladeProvider
     {
         $cache = $_SERVER['DOCUMENT_ROOT'].'/'.static::$cachePath;
         $viewPaths = [
-            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath
+            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath,
         ];
 
         $blade = new Blade($viewPaths, $cache);
@@ -58,7 +58,6 @@ class BladeProvider
 
         return $view;
     }
-
 
     /**
      * Update paths where blade tries to find additional views.
@@ -71,7 +70,7 @@ class BladeProvider
     {
         $newPaths = [
             $_SERVER['DOCUMENT_ROOT'].$templateDir,
-            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath
+            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath,
         ];
 
         $finder = Container::getInstance()->make('view.finder');

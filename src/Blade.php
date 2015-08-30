@@ -28,8 +28,7 @@ class Blade extends BaseBlade
     public function registerViewFinder()
     {
         $me = $this;
-        $this->container->singleton('view.finder', function($app) use ($me)
-        {
+        $this->container->singleton('view.finder', function ($app) use ($me) {
             $paths = $me->viewPaths;
 
             return new ViewFinder($app['files'], $paths);
