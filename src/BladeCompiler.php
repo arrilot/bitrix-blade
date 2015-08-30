@@ -9,7 +9,7 @@ class BladeCompiler extends BaseCompiler
     /**
      * Compile the given Blade template contents.
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
     public function compileString($value)
@@ -30,7 +30,7 @@ class BladeCompiler extends BaseCompiler
         // template inheritance via the extends keyword that should be appended.
         if (count($this->footer) > 0) {
             $result = ltrim($result, PHP_EOL)
-                . PHP_EOL . implode(PHP_EOL, array_reverse($this->footer));
+                .PHP_EOL.implode(PHP_EOL, array_reverse($this->footer));
         }
 
         return $result;

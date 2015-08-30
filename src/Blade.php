@@ -29,14 +29,14 @@ class Blade
     /**
      * Service container instance.
      *
-     * @var Illuminate\Container\Container
+     * @var Container
      */
     protected $container;
 
     /**
      * View factory instance.
      *
-     * @var Illuminate\View\Factory
+     * @var Factory
      */
     protected $viewFactory;
 
@@ -78,7 +78,7 @@ class Blade
     public function registerFilesystem()
     {
         $this->container->singleton('files', function () {
-            return new Filesystem;
+            return new Filesystem();
         });
     }
 
@@ -90,7 +90,7 @@ class Blade
     public function registerEvents()
     {
         $this->container->singleton('events', function () {
-            return new Dispatcher;
+            return new Dispatcher();
         });
     }
 
@@ -103,8 +103,8 @@ class Blade
     {
         $me = $this;
 
-        $this->container->singleton('view.engine.resolver', function ($app) use ($me) {
-            $resolver = new EngineResolver;
+        $this->container->singleton('view.engine.resolver', function () use ($me) {
+            $resolver = new EngineResolver();
 
             $me->registerPhpEngine($resolver);
             $me->registerBladeEngine($resolver);
@@ -116,21 +116,21 @@ class Blade
     /**
      * Register the PHP engine implementation.
      *
-     * @param  \Illuminate\View\Engines\EngineResolver $resolver
+     * @param EngineResolver $resolver
      *
      * @return void
      */
     public function registerPhpEngine($resolver)
     {
         $resolver->register('php', function () {
-            return new PhpEngine;
+            return new PhpEngine();
         });
     }
 
     /**
      * Register the Blade engine implementation.
      *
-     * @param  \Illuminate\View\Engines\EngineResolver $resolver
+     * @param EngineResolver $resolver
      *
      * @return void
      */
