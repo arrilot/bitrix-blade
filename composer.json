@@ -14,7 +14,8 @@
   "homepage": "https://github.com/Arrilot/bitrix-blade",
   "require": {
     "php": ">=5.4.0",
-    "illuminate/container": "5.*"
+    "illuminate/container": "5.*",
+    "illuminate/view": "5.*"
   },
   "autoload": {
     "psr-4": {
