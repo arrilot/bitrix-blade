@@ -1,3 +1,7 @@
+[![Latest Stable Version](https://poser.pugx.org/arrilot/bitrix-blade/v/stable.svg)](https://packagist.org/packages/arrilot/bitrix-blade/)
+[![Total Downloads](https://img.shields.io/packagist/dt/arrilot/bitrix-blade.svg?style=flat)](https://packagist.org/packages/Arrilot/bitrix-blade)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/arrilot/bitrix-blade/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/arrilot/bitrix-blade/)
+
 # Интеграция шаблонизатора Blade в Битрикс
 
 ## Установка

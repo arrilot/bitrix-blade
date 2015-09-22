@@ -43,8 +43,8 @@ class BladeProvider
      */
     public static function register($baseViewPath = 'local/views', $cachePath = 'bitrix/cache/blade')
     {
-        static::$baseViewPath = $baseViewPath;
-        static::$cachePath = $cachePath;
+        static::$baseViewPath = $_SERVER['DOCUMENT_ROOT'].'/'.$baseViewPath;
+        static::$cachePath = $_SERVER['DOCUMENT_ROOT'].'/'.$cachePath;
 
         static::instantiateServiceContainer();
         static::instantiateViewFactory();
@@ -75,7 +75,7 @@ class BladeProvider
     {
         $newPaths = [
             $_SERVER['DOCUMENT_ROOT'].$templateDir,
-            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath,
+            static::$baseViewPath,
         ];
 
         $finder = Container::getInstance()->make('view.finder');
@@ -102,14 +102,27 @@ class BladeProvider
      */
     protected static function instantiateViewFactory()
     {
+        static::createDirIfNotExist(static::$baseViewPath);
+        static::createDirIfNotExist(static::$cachePath);
+
         $viewPaths = [
-            $_SERVER['DOCUMENT_ROOT'].'/'.static::$baseViewPath,
+            static::$baseViewPath,
         ];
-        $cache = $_SERVER['DOCUMENT_ROOT'].'/'.static::$cachePath;
+        $cache = static::$cachePath;
 
         $blade = new Blade($viewPaths, $cache, static::$container);
 
         static::$viewFactory = $blade->view();
         static::$viewFactory->addExtension('blade', 'blade');
+    }
+
+    /**
+     * Create dir if it does not exist.
+     */
+    protected static function createDirIfNotExist($path)
+    {
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);  
+        }
     }
 }
