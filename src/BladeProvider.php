@@ -41,7 +41,7 @@ class BladeProvider
      * @param string $baseViewPath
      * @param string $cachePath
      */
-    public static function register($baseViewPath = 'local/views', $cachePath = 'bitrix/cache/blade')
+    public static function register($baseViewPath = 'local/views', $cachePath = 'local/cache/blade')
     {
         static::$baseViewPath = $_SERVER['DOCUMENT_ROOT'].'/'.$baseViewPath;
         static::$cachePath = $_SERVER['DOCUMENT_ROOT'].'/'.$cachePath;
