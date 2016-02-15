@@ -41,7 +41,7 @@ class BladeProvider
      * @param string $baseViewPath
      * @param string $cachePath
      */
-    public static function register($baseViewPath = 'local/views', $cachePath = 'local/cache/blade')
+    public static function register($baseViewPath = 'local/views', $cachePath = 'bitrix/cache/blade')
     {
         static::$baseViewPath = $_SERVER['DOCUMENT_ROOT'].'/'.$baseViewPath;
         static::$cachePath = $_SERVER['DOCUMENT_ROOT'].'/'.$cachePath;
@@ -118,11 +118,15 @@ class BladeProvider
 
     /**
      * Create dir if it does not exist.
+     *
+     * @param string $path
      */
     protected static function createDirIfNotExist($path)
     {
         if (!file_exists($path)) {
-            mkdir($path, 0777, true);  
+            $mask = umask(0);
+            mkdir($path, 0777, true);
+            umask($mask);
         }
     }
 }
