@@ -16,6 +16,7 @@ class BladeCompiler extends BaseCompiler
     public function compileString($value)
     {
         $result = '<?if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true) die();?>';
+        $result .= '<?php extract($arResult, EXTR_SKIP); ?>';
 
         $this->footer = [];
 
