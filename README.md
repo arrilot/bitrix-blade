@@ -31,7 +31,7 @@ Arrilot\BitrixBlade\BladeProvider::register();
 2. По понятным причинам наследованием шаблонов в полную силу воспользоваться не получится.
 3. Традиционное расширение `.blade.php` использовать нельзя. Битрикс видя `.php` включает php движок.
 4. Вместо `$this` в шаблоне следует использовать `$template` - например `$template->setFrameMode(true);`
-5. Проверку `<?if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true) die();?>` прописывать в blade-шаблоне не нужно, она добавляется в скомпилированные view автоматически.
+5. Проверку `<?if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true) die();?>` прописывать в blade-шаблоне не нужно, она добавляется в скомпилированные view автоматически. Также вместе с этим выполняется и ```extract($arResult, EXTR_SKIP);```
 
 ## Дополнительно
 
