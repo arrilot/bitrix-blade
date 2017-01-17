@@ -162,6 +162,7 @@ class Blade
         $factory = new Factory($resolver, $finder, $this->container['events']);
         $factory->setContainer($this->container);
 
+        //$factory->share('app', $this->container);
         $this->viewFactory = $factory;
     }
 

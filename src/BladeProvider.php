@@ -48,6 +48,7 @@ class BladeProvider
 
         static::instantiateServiceContainer();
         static::instantiateViewFactory();
+        static::registerBitrixDirectives();
 
         global $arCustomTemplateEngines;
         $arCustomTemplateEngines['blade'] = [
@@ -64,6 +65,14 @@ class BladeProvider
     public static function getViewFactory()
     {
         return static::$viewFactory;
+    }
+
+    /**
+     * @return BladeCompiler
+     */
+    public function getCompiler()
+    {
+        return static::$container['blade.compiler'];
     }
 
     /**
@@ -128,5 +137,19 @@ class BladeProvider
             mkdir($path, 0777, true);
             umask($mask);
         }
+    }
+
+    /**
+     * Register bitrix directives.
+     */
+    protected static function registerBitrixDirectives()
+    {
+        $compiler = static::getCompiler();
+        $compiler->directive('bxComponent', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+
+            return '<?php $APPLICATION->IncludeComponent('.$expression.'); ?>';
+        });
     }
 }
