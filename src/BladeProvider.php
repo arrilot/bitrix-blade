@@ -145,11 +145,22 @@ class BladeProvider
     protected static function registerBitrixDirectives()
     {
         $compiler = static::getCompiler();
-        $compiler->directive('bxComponent', function ($expression) {
+        $compiler->directive('component', function ($expression) {
             $expression = rtrim($expression, ')');
             $expression = ltrim($expression, '(');
 
             return '<?php $APPLICATION->IncludeComponent('.$expression.'); ?>';
+        });
+
+        $compiler->directive('block', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+
+            return '<?php ob_start(); $__bx_block = ' . $expression . '; ?>';
+        });
+    
+        $compiler->directive('endblock', function () {
+            return '<?php $APPLICATION->AddViewContent($__bx_block, ob_get_clean()); ?>';
         });
     }
 }
