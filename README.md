@@ -11,9 +11,12 @@
 2) добавляем в init.php
 
 ```php
+
+use Arrilot\BitrixBlade\BladeProvider;
+
 require $_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php";
 
-Arrilot\BitrixBlade\BladeProvider::register();
+BladeProvider::register();
 ```
 
 ## Использование
@@ -24,6 +27,22 @@ Arrilot\BitrixBlade\BladeProvider::register();
 
 1. Сначала view ищется относительно директории текущего шаблона компонента (там где лежит template.blade)
 2. Если не view там не нашёлся, то он ищется относительно базовой директории (по умолчанию `local/view`, но может быть указана другая при вызове `BladeProvider::register()`)
+
+## Пользовательские директивы (custom directives)
+
+Для того чтобы добавить свою директиву, необходимо зарегистрировать её в компиляторе:
+
+```
+$compiler = BladeProvider::getCompiler();
+$compiler->directive('directiveName', function ($expression) {
+    return '...';
+});
+```
+При установке пакета `BladeProvider::register()` за вас уже автоматически зарегистрированы две полезные директивы:
+
+1. ```@component``` - аналог ```$APPLICATION->IncludeComponent()```
+2. ```@block('key')``` и ```@endblock``` - всё что заключено между ними будет выведено в месте, где вызван метод ```$APPLICATION->ShowViewContent('key')```
+
 
 ## Некоторые моменты
 
