@@ -42,7 +42,7 @@ $compiler->directive('directiveName', function ($expression) {
 
 1. ```@component``` - аналог ```$APPLICATION->IncludeComponent()```
 2. ```@block('key')``` и ```@endblock``` - всё что заключено между ними будет выведено в месте, где вызван метод ```$APPLICATION->ShowViewContent('key')```
-
+3. ```@lang('key')``` - равносильно ```{!! Bitrix\Main\Localization\Loc::getMessage('key') !!} ```
 
 ## Некоторые моменты
 
@@ -51,6 +51,7 @@ $compiler->directive('directiveName', function ($expression) {
 3. Традиционное расширение `.blade.php` использовать нельзя. Битрикс видя `.php` включает php движок.
 4. Вместо `$this` в шаблоне следует использовать `$template` - например `$template->setFrameMode(true);`
 5. Проверку `<?if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true) die();?>` прописывать в blade-шаблоне не нужно, она добавляется в скомпилированные view автоматически. Также вместе с этим выполняется и ```extract($arResult, EXTR_SKIP);```
+6. Чтобы языковой файл из шаблона подключился, его (этот языковой файл) надо назвать как обычно - `template.php`
 
 ## Дополнительно
 

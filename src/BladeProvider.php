@@ -158,9 +158,13 @@ class BladeProvider
 
             return '<?php ob_start(); $__bx_block = ' . $expression . '; ?>';
         });
-    
+
         $compiler->directive('endblock', function () {
             return '<?php $APPLICATION->AddViewContent($__bx_block, ob_get_clean()); ?>';
+        });
+
+        $compiler->directive('lang', function ($expression) {
+            return '<?= Bitrix\Main\Localization\Loc::getMessage('.$expression.') ?>';
         });
     }
 }
