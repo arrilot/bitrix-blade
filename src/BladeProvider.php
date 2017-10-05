@@ -82,12 +82,17 @@ class BladeProvider
      */
     public static function updateViewPaths($templateDir)
     {
+        $finder = Container::getInstance()->make('view.finder');
+
+        $currentPaths = $finder->getPaths();
         $newPaths = [
             $_SERVER['DOCUMENT_ROOT'].$templateDir,
             static::$baseViewPath,
         ];
 
-        $finder = Container::getInstance()->make('view.finder');
+        // Полностью перезаписывать пути нельзя, иначе вложенные компоненты + include перестанут работать.
+        $newPaths = array_values(array_unique(array_merge($newPaths, $currentPaths)));
+
         $finder->setPaths($newPaths);
     }
 
