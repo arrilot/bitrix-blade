@@ -38,11 +38,14 @@ $compiler->directive('directiveName', function ($expression) {
     return '...';
 });
 ```
-При установке пакета `BladeProvider::register()` за вас уже автоматически зарегистрированы две полезные директивы:
+При установке пакета `BladeProvider::register()` за вас уже автоматически зарегистрировано некоторое количества полезных директив:
 
 1. ```@component``` - аналог ```$APPLICATION->IncludeComponent()```
 2. ```@block('key')``` и ```@endblock``` - всё что заключено между ними будет выведено в месте, где вызван метод ```$APPLICATION->ShowViewContent('key')```
 3. ```@lang('key')``` - равносильно ```{!! Bitrix\Main\Localization\Loc::getMessage('key') !!} ```
+4. ```@auth``` и ```@endauth``` - удаптированы для работы битриксовым юзерменеджментом (проверка ``$USER->IsAuthorized()`)
+5. ```@guest``` и ```@endguest``` - аналогично
+6. ```@admin``` и ```@endadmin``` - аналог `$USER->IsAdmin()`
 
 ## Некоторые моменты
 

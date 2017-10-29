@@ -150,6 +150,11 @@ class BladeProvider
     protected static function registerBitrixDirectives()
     {
         $compiler = static::getCompiler();
+
+        $endIf = function () {
+            return '<?php endif; ?>';
+        };
+
         $compiler->directive('component', function ($expression) {
             $expression = rtrim($expression, ')');
             $expression = ltrim($expression, '(');
@@ -171,5 +176,19 @@ class BladeProvider
         $compiler->directive('lang', function ($expression) {
             return '<?= Bitrix\Main\Localization\Loc::getMessage('.$expression.') ?>';
         });
+
+        $compiler->directive('auth', function () {
+            return '<?php if($USER->IsAuthorized()): ?>';
+        });
+        $compiler->directive('guest', function () {
+            return '<?php if(!$USER->IsAuthorized()): ?>';
+        });
+        $compiler->directive('admin', function () {
+            return '<?php if($USER->IsAdmin()): ?>';
+        });
+
+        $compiler->directive('endauth', $endIf);
+        $compiler->directive('endguest', $endIf);
+        $compiler->directive('endadmin', $endIf);
     }
 }
