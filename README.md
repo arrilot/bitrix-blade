@@ -43,9 +43,9 @@ $compiler->directive('directiveName', function ($expression) {
 1. ```@component``` - аналог ```$APPLICATION->IncludeComponent()```
 2. ```@block('key')``` и ```@endblock``` - всё что заключено между ними будет выведено в месте, где вызван метод ```$APPLICATION->ShowViewContent('key')```
 3. ```@lang('key')``` - равносильно ```{!! Bitrix\Main\Localization\Loc::getMessage('key') !!} ```
-4. ```@auth``` и ```@endauth``` - удаптированы для работы битриксовым юзерменеджментом (проверка ``$USER->IsAuthorized()`)
-5. ```@guest``` и ```@endguest``` - аналогично
-6. ```@admin``` и ```@endadmin``` - аналог `$USER->IsAdmin()`
+4. ```@auth``` и ```@endauth``` - эти адаптированы для работы битриксовым юзерменеджментом. Это сокращенная запись `<? if($USER->IsAuthorized()) ?> ... <? endif ?>`)
+5. ```@guest``` и ```@endguest``` - аналогично, но проверка на неавторизованного юзера.
+6. ```@admin``` и ```@endadmin``` - аналог для `$USER->IsAdmin()`
 
 ## Некоторые моменты
 
