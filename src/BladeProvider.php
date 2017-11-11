@@ -190,5 +190,59 @@ class BladeProvider
         $compiler->directive('endauth', $endIf);
         $compiler->directive('endguest', $endIf);
         $compiler->directive('endadmin', $endIf);
+    
+        $compiler->directive('actionIBlockElementEdit', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?php \Arrilot\BitrixBlade\AdminActions::editIBlockElement($template, ' . $expression . '); ?>';
+        });
+
+        $compiler->directive('actionIBlockElementDelete', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?php \Arrilot\BitrixBlade\AdminActions::deleteIBlockElement($template, ' . $expression . '); ?>';
+        });
+
+        $compiler->directive('actionIBlockElementArea', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?= \Arrilot\BitrixBlade\AdminActions::getEditArea($template, "iblock_element", ' . $expression . '); ?>';
+        });
+    
+        $compiler->directive('actionIBlockSectionEdit', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?php \Arrilot\BitrixBlade\AdminActions::editIBlockSection($template, ' . $expression . '); ?>';
+        });
+    
+        $compiler->directive('actionIBlockSectionDelete', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?php \Arrilot\BitrixBlade\AdminActions::deleteIBlockSection($template, ' . $expression . '); ?>';
+        });
+    
+        $compiler->directive('actionIBlockSectionArea', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?= \Arrilot\BitrixBlade\AdminActions::getEditArea($template, "iblock_section", ' . $expression . '); ?>';
+        });
+
+        $compiler->directive('actionHLBlockElementEdit', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?php \Arrilot\BitrixBlade\AdminActions::editHLBlockElement($template, ' . $expression . '); ?>';
+        });
+
+        $compiler->directive('actionHLBlockElementDelete', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?php \Arrilot\BitrixBlade\AdminActions::deleteHLBlockElement($template, ' . $expression . '); ?>';
+        });
+
+        $compiler->directive('actionHLBlockElementArea', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+            return '<?= \Arrilot\BitrixBlade\AdminActions::getEditArea($template, "hlblock_element", ' . $expression . '); ?>';
+        });
     }
 }
