@@ -190,59 +190,43 @@ class BladeProvider
         $compiler->directive('endauth', $endIf);
         $compiler->directive('endguest', $endIf);
         $compiler->directive('endadmin', $endIf);
-    
-        $compiler->directive('actionIBlockElementEdit', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?php \Arrilot\BitrixBlade\AdminActions::editIBlockElement($template, ' . $expression . '); ?>';
-        });
 
-        $compiler->directive('actionIBlockElementDelete', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?php \Arrilot\BitrixBlade\AdminActions::deleteIBlockElement($template, ' . $expression . '); ?>';
-        });
+        static::registerHermitageDirectives($compiler);
+    }
 
-        $compiler->directive('actionIBlockElementArea', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?= \Arrilot\BitrixBlade\AdminActions::getEditArea($template, "iblock_element", ' . $expression . '); ?>';
-        });
-    
-        $compiler->directive('actionIBlockSectionEdit', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?php \Arrilot\BitrixBlade\AdminActions::editIBlockSection($template, ' . $expression . '); ?>';
-        });
-    
-        $compiler->directive('actionIBlockSectionDelete', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?php \Arrilot\BitrixBlade\AdminActions::deleteIBlockSection($template, ' . $expression . '); ?>';
-        });
-    
-        $compiler->directive('actionIBlockSectionArea', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?= \Arrilot\BitrixBlade\AdminActions::getEditArea($template, "iblock_section", ' . $expression . '); ?>';
-        });
+    /**
+     * @param BladeCompiler $compiler
+     */
+    private static function registerHermitageDirectives($compiler)
+    {
+        $simpleDirectives = [
+            'actionEditIBlockElement' => 'editIBlockElement',
+            'actionDeleteIBlockElement' => 'deleteIBlockElement',
+            'actionEditIBlockSection' => 'editIBlockSection',
+            'actionDeleteIBlockSection' => 'deleteIBlockSection',
+            'actionEditHLBlockElement' => 'editHLBlockElement',
+            'actionDeleteHLBlockElement' => 'deleteHLBlockElement',
+            'actionAddForIBlock' => 'addForIBlock',
+        ];
+        foreach ($simpleDirectives as $directive => $action) {
+            $compiler->directive($directive, function ($expression) use ($action) {
+                $expression = rtrim($expression, ')');
+                $expression = ltrim($expression, '(');
+                return '<?php \Arrilot\BitrixHermitage\Actions::' . $action . '($template, ' . $expression . '); ?>';
+            });
+        }
 
-        $compiler->directive('actionHLBlockElementEdit', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?php \Arrilot\BitrixBlade\AdminActions::editHLBlockElement($template, ' . $expression . '); ?>';
-        });
-
-        $compiler->directive('actionHLBlockElementDelete', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?php \Arrilot\BitrixBlade\AdminActions::deleteHLBlockElement($template, ' . $expression . '); ?>';
-        });
-
-        $compiler->directive('actionHLBlockElementArea', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-            return '<?= \Arrilot\BitrixBlade\AdminActions::getEditArea($template, "hlblock_element", ' . $expression . '); ?>';
-        });
+        $echoDirectives = [
+            'actionAreaForIBlockElement' => 'areaForIBlockElement',
+            'actionAreaForIBlockSection' => 'areaForIBlockSection',
+            'actionAreaForHLBlockElement' => 'areaForHLBlockElement',
+        ];
+        foreach ($echoDirectives as $directive => $action) {
+            $compiler->directive($directive, function ($expression) use ($action) {
+                $expression = rtrim($expression, ')');
+                $expression = ltrim($expression, '(');
+                return '<?= \Arrilot\BitrixHermitage\Actions::' . $action . '($template, ' . $expression . '); ?>';
+            });
+        }
     }
 }

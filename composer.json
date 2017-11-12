@@ -16,7 +16,8 @@
     "php": ">=5.4.0",
     "illuminate/container": "5.*",
     "illuminate/view": "5.*",
-    "illuminate/events": "5.*"
+    "illuminate/events": "5.*",
+    "arrilot/bitrix-hermitage": "^1"
   },
   "autoload": {
     "psr-4": {
