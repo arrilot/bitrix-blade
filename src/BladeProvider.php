@@ -212,7 +212,7 @@ class BladeProvider
             $compiler->directive($directive, function ($expression) use ($action) {
                 $expression = rtrim($expression, ')');
                 $expression = ltrim($expression, '(');
-                return '<?php \Arrilot\BitrixHermitage\Actions::' . $action . '($template, ' . $expression . '); ?>';
+                return '<?php \Arrilot\BitrixHermitage\Action::' . $action . '($template, ' . $expression . '); ?>';
             });
         }
 
@@ -225,7 +225,7 @@ class BladeProvider
             $compiler->directive($directive, function ($expression) use ($action) {
                 $expression = rtrim($expression, ')');
                 $expression = ltrim($expression, '(');
-                return '<?= \Arrilot\BitrixHermitage\Actions::' . $action . '($template, ' . $expression . '); ?>';
+                return '<?= \Arrilot\BitrixHermitage\Action::' . $action . '($template, ' . $expression . '); ?>';
             });
         }
     }
