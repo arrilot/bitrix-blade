@@ -202,10 +202,16 @@ class BladeProvider
         $simpleDirectives = [
             'actionEditIBlockElement' => 'editIBlockElement',
             'actionDeleteIBlockElement' => 'deleteIBlockElement',
+            'actionEditAndDeleteIBlockElement' => 'editAndDeleteIBlockElement',
+
             'actionEditIBlockSection' => 'editIBlockSection',
             'actionDeleteIBlockSection' => 'deleteIBlockSection',
+            'actionEditAndDeleteIBlockSection' => 'editAndDeleteIBlockSection',
+
             'actionEditHLBlockElement' => 'editHLBlockElement',
             'actionDeleteHLBlockElement' => 'deleteHLBlockElement',
+            'actionEditAndDeleteHLBlockElement' => 'editAndDeleteHLBlockElement',
+
             'actionAddForIBlock' => 'addForIBlock',
         ];
         foreach ($simpleDirectives as $directive => $action) {
