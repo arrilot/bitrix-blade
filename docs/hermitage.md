@@ -17,5 +17,5 @@
 @actionDeleteHLBlockElement($element, $confirm = '...') => Action::deleteHLBlockElement$template, $element, $confirm = '...'),
 @actionEditAndDeleteHLBlockElement($element)            => Action::editAndDeleteHLBlockElement($template, $element) ,
 
-@actionAddForIBlock($iblockId)                          => Action::addForIBlock($templateOrComponent, $iblockId, [...]),
+@actionAddForIBlock($iblockId, [...])                   => Action::addForIBlock($templateOrComponent, $iblockId, [...]),
 ```
