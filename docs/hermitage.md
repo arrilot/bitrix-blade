@@ -5,17 +5,17 @@
 Таблица соответвтия директив и методов пакета
 
 ```php
+@actionEditAndDeleteIBlockElement($element)             => Action::editAndDeleteIBlockElement($template, $element),
 @actionEditIBlockElement($element)                      => Action::editIBlockElement($template, $element),
 @actionDeleteIBlockElement($element, $confirm = '...')  => Action::deleteIBlockElement($template, $element, $confirm = '...'),
-@actionEditAndDeleteIBlockElement($element)             => Action::editAndDeleteIBlockElement($template, $element),
 
+@actionEditAndDeleteIBlockSection($section)             => Action::editAndDeleteIBlockSection($template, $section),
 @actionEditIBlockSection($section)                      => Action::editIBlockSection($template, $section),
 @actionDeleteIBlockSection($section, $confirm = '...')  => Action::deleteIBlockSection($template, $section, $confirm = '...'),
-@actionEditAndDeleteIBlockSection($section)             => Action::editAndDeleteIBlockSection($template, $section),
 
+@actionEditAndDeleteHLBlockElement($element)            => Action::editAndDeleteHLBlockElement($template, $element) ,
 @actionEditHLBlockElement($element)                     => Action::editHLBlockElement($template, $element),
 @actionDeleteHLBlockElement($element, $confirm = '...') => Action::deleteHLBlockElement$template, $element, $confirm = '...'),
-@actionEditAndDeleteHLBlockElement($element)            => Action::editAndDeleteHLBlockElement($template, $element) ,
 
 @actionAddForIBlock($iblockId, [...])                   => Action::addForIBlock($templateOrComponent, $iblockId, [...]),
 ```

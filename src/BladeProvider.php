@@ -200,18 +200,6 @@ class BladeProvider
     private static function registerHermitageDirectives($compiler)
     {
         $simpleDirectives = [
-            'actionEditIBlockElement' => 'editIBlockElement',
-            'actionDeleteIBlockElement' => 'deleteIBlockElement',
-            'actionEditAndDeleteIBlockElement' => 'editAndDeleteIBlockElement',
-
-            'actionEditIBlockSection' => 'editIBlockSection',
-            'actionDeleteIBlockSection' => 'deleteIBlockSection',
-            'actionEditAndDeleteIBlockSection' => 'editAndDeleteIBlockSection',
-
-            'actionEditHLBlockElement' => 'editHLBlockElement',
-            'actionDeleteHLBlockElement' => 'deleteHLBlockElement',
-            'actionEditAndDeleteHLBlockElement' => 'editAndDeleteHLBlockElement',
-
             'actionAddForIBlock' => 'addForIBlock',
         ];
         foreach ($simpleDirectives as $directive => $action) {
@@ -223,9 +211,17 @@ class BladeProvider
         }
 
         $echoDirectives = [
-            'actionAreaForIBlockElement' => 'areaForIBlockElement',
-            'actionAreaForIBlockSection' => 'areaForIBlockSection',
-            'actionAreaForHLBlockElement' => 'areaForHLBlockElement',
+            'actionEditIBlockElement' => 'editIBlockElement',
+            'actionDeleteIBlockElement' => 'deleteIBlockElement',
+            'actionEditAndDeleteIBlockElement' => 'editAndDeleteIBlockElement',
+
+            'actionEditIBlockSection' => 'editIBlockSection',
+            'actionDeleteIBlockSection' => 'deleteIBlockSection',
+            'actionEditAndDeleteIBlockSection' => 'editAndDeleteIBlockSection',
+
+            'actionEditHLBlockElement' => 'editHLBlockElement',
+            'actionDeleteHLBlockElement' => 'deleteHLBlockElement',
+            'actionEditAndDeleteHLBlockElement' => 'editAndDeleteHLBlockElement',
         ];
         foreach ($echoDirectives as $directive => $action) {
             $compiler->directive($directive, function ($expression) use ($action) {
