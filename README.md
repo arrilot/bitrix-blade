@@ -46,6 +46,7 @@ $compiler->directive('directiveName', function ($expression) {
 4. ```@auth``` и ```@endauth``` - сокращенная запись `<? if($USER->IsAuthorized()) ?> ... <? endif ?>`
 5. ```@guest``` и ```@endguest``` - аналогично, но проверка на неавторизованного юзера.
 6. ```@admin``` и ```@endadmin``` - аналогично, но `$USER->IsAdmin()`
+7. [Директивы по работе с эрмитажем](docs/hermitage.md)
 
 ## Некоторые моменты
 
@@ -55,6 +56,7 @@ $compiler->directive('directiveName', function ($expression) {
 4. Вместо `$this` в шаблоне следует использовать `$template` - например `$template->setFrameMode(true);`
 5. Проверку `<?if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true) die();?>` прописывать в blade-шаблоне не нужно, она добавляется в скомпилированные view автоматически. Также вместе с этим выполняется и ```extract($arResult, EXTR_SKIP);```
 6. Чтобы языковой файл из шаблона подключился, его (этот языковой файл) надо назвать как обычно - `template.php`
+
 
 ## Дополнительно
 
