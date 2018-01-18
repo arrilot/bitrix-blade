@@ -162,6 +162,13 @@ class BladeProvider
             return '<?php $APPLICATION->IncludeComponent('.$expression.'); ?>';
         });
 
+        $compiler->directive('bxComponent', function ($expression) {
+            $expression = rtrim($expression, ')');
+            $expression = ltrim($expression, '(');
+
+            return '<?php $APPLICATION->IncludeComponent('.$expression.'); ?>';
+        });
+
         $compiler->directive('block', function ($expression) {
             $expression = rtrim($expression, ')');
             $expression = ltrim($expression, '(');
