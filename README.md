@@ -60,5 +60,9 @@ $compiler->directive('directiveName', function ($expression) {
 
 ## Дополнительно
 
-Чтобы включить подсветку синтаксиса в PhpStorm для .blade файлов нужно добавить это расширение в
+PHPStorm
+
+1. Чтобы включить подсветку синтаксиса в PhpStorm для .blade файлов нужно добавить это расширение в
 `Settings->Editor->File Types->Blade`
+2. Если вас раздражает, что директива @component подсвечивается как незакрытая, то эту проверку можно выключить (или уменьшить важность) в `Settings->Editor->Inspections->Blade files->Control directive missing`
+3. Чтобы phpstorm понимал и подсвечивалл должным образом пользовательские директивы из этого пакета их можно добавить в него. Делается это в `Settings->Language & Frameworks->PHP->Blade->Directives`
