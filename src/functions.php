@@ -21,9 +21,9 @@ if (!function_exists('renderBladeTemplate')) {
         Bitrix\Main\Localization\Loc::loadMessages($_SERVER['DOCUMENT_ROOT'].$templateFolder.'/template.php');
 
         $view = BladeProvider::getViewFactory();
-    
+
         BladeProvider::addTemplateFolderToViewPaths($template->__folder);
-    
+
         global $APPLICATION, $USER;
 
         echo $view->file($_SERVER['DOCUMENT_ROOT'].$templateFile, compact(
