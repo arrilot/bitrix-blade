@@ -80,20 +80,43 @@ class BladeProvider
      *
      * @param string $templateDir
      */
-    public static function updateViewPaths($templateDir)
+    public static function addTemplateFolderToViewPaths($templateDir)
     {
         $finder = Container::getInstance()->make('view.finder');
 
         $currentPaths = $finder->getPaths();
-        $newPaths = [
-            $_SERVER['DOCUMENT_ROOT'].$templateDir,
-            static::$baseViewPath,
-        ];
+        $newPaths = [$_SERVER['DOCUMENT_ROOT'].$templateDir];
 
         // Полностью перезаписывать пути нельзя, иначе вложенные компоненты + include перестанут работать.
         $newPaths = array_values(array_unique(array_merge($newPaths, $currentPaths)));
+        if (!in_array(static::$baseViewPath, $newPaths)) {
+            $newPaths[] = static::$baseViewPath;
+        }
+
+        // Необходимо очистить внутренний кэш ViewFinder-а
+        // Потому что иначе если в родительском компоненте есть @include('foo'), то при вызове @include('foo') из дочернего,
+        // он не будет искать foo в дочернем, а сразу подключит foo из родительского компонента
+        $finder->flush();
 
         $finder->setPaths($newPaths);
+    }
+
+    /**
+     * Undo addTemplateFolderToViewPaths
+     *
+     * @param string $templateDir
+     */
+    public static function removeTemplateFolderFromViewPaths($templateDir)
+    {
+        $finder = Container::getInstance()->make('view.finder');
+        $currentPaths = $finder->getPaths();
+        $finder->setPaths(array_diff($currentPaths, [$_SERVER['DOCUMENT_ROOT'].$templateDir] ));
+
+        // Необходимо очистить внутренний кэш ViewFinder-а
+        // Потому что иначе если в дочернем компоненте есть @include('foo'), то при вызове @include('foo') в родительском
+        // после подключения дочернего,
+        // он не будет искать foo в родительском, а сразу подключит foo из дочернего компонента
+        $finder->flush();
     }
 
     /**
@@ -162,13 +185,6 @@ class BladeProvider
             return '<?php $APPLICATION->IncludeComponent('.$expression.'); ?>';
         });
 
-        $compiler->directive('bxComponent', function ($expression) {
-            $expression = rtrim($expression, ')');
-            $expression = ltrim($expression, '(');
-
-            return '<?php $APPLICATION->IncludeComponent('.$expression.'); ?>';
-        });
-
         $compiler->directive('block', function ($expression) {
             $expression = rtrim($expression, ')');
             $expression = ltrim($expression, '(');
@@ -207,17 +223,6 @@ class BladeProvider
     private static function registerHermitageDirectives($compiler)
     {
         $simpleDirectives = [
-            'actionAddForIBlock' => 'addForIBlock',
-        ];
-        foreach ($simpleDirectives as $directive => $action) {
-            $compiler->directive($directive, function ($expression) use ($action) {
-                $expression = rtrim($expression, ')');
-                $expression = ltrim($expression, '(');
-                return '<?php \Arrilot\BitrixHermitage\Action::' . $action . '($template, ' . $expression . '); ?>';
-            });
-        }
-
-        $echoDirectives = [
             'actionEditIBlockElement' => 'editIBlockElement',
             'actionDeleteIBlockElement' => 'deleteIBlockElement',
             'actionEditAndDeleteIBlockElement' => 'editAndDeleteIBlockElement',
@@ -229,6 +234,21 @@ class BladeProvider
             'actionEditHLBlockElement' => 'editHLBlockElement',
             'actionDeleteHLBlockElement' => 'deleteHLBlockElement',
             'actionEditAndDeleteHLBlockElement' => 'editAndDeleteHLBlockElement',
+
+            'actionAddForIBlock' => 'addForIBlock',
+        ];
+        foreach ($simpleDirectives as $directive => $action) {
+            $compiler->directive($directive, function ($expression) use ($action) {
+                $expression = rtrim($expression, ')');
+                $expression = ltrim($expression, '(');
+                return '<?php \Arrilot\BitrixHermitage\Action::' . $action . '($template, ' . $expression . '); ?>';
+            });
+        }
+
+        $echoDirectives = [
+            'actionAreaForIBlockElement' => 'areaForIBlockElement',
+            'actionAreaForIBlockSection' => 'areaForIBlockSection',
+            'actionAreaForHLBlockElement' => 'areaForHLBlockElement',
         ];
         foreach ($echoDirectives as $directive => $action) {
             $compiler->directive($directive, function ($expression) use ($action) {
