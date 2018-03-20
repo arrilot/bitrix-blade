@@ -2,7 +2,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/arrilot/bitrix-blade.svg?style=flat)](https://packagist.org/packages/Arrilot/bitrix-blade)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/arrilot/bitrix-blade/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/arrilot/bitrix-blade/)
 
-# Интеграция шаблонизатора Blade в Битрикс
+# Bitrix Blade - интеграция шаблонизатора Blade в Битрикс
 
 ## Установка
 
@@ -38,7 +38,7 @@ $compiler->directive('directiveName', function ($expression) {
     return '...';
 });
 ```
-При установке пакета `BladeProvider::register()` за вас уже автоматически зарегистрировано некоторое количества полезных директив:
+При установке пакета `BladeProvider::register()` за вас уже автоматически зарегистрировано некоторое количество полезных директив:
 
 1. ```@bxComponent``` (старый вариант - `@component`)  - аналог ```$APPLICATION->IncludeComponent()```
 2. ```@block('key')``` и ```@endblock``` - всё что заключено между ними будет выведено в месте, где вызван метод ```$APPLICATION->ShowViewContent('key')```
@@ -60,8 +60,8 @@ $compiler->directive('directiveName', function ($expression) {
 
 ## Дополнительно
 
-PHPStorm
+PhpStorm
 
 1. Чтобы включить подсветку синтаксиса в PhpStorm для .blade файлов нужно добавить это расширение в
 `Settings->Editor->File Types->Blade`
-2. Чтобы phpstorm понимал и подсвечивалл должным образом пользовательские директивы из этого пакета их можно добавить в него. Делается это в `Settings->Language & Frameworks->PHP->Blade->Directives`
+2. Чтобы PhpStorm понимал и подсвечивалл должным образом пользовательские директивы из этого пакета их можно добавить в него. Делается это в `Settings->Language & Frameworks->PHP->Blade->Directives`
