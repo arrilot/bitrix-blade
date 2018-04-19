@@ -43,9 +43,8 @@ class BladeProvider
      */
     public static function register($baseViewPath = 'local/views', $cachePath = 'bitrix/cache/blade')
     {
-        static::$baseViewPath = $_SERVER['DOCUMENT_ROOT'].'/'.$baseViewPath;
-        static::$cachePath = $_SERVER['DOCUMENT_ROOT'].'/'.$cachePath;
-
+        static::$baseViewPath = static::isAbsolutePath($baseViewPath) ? $baseViewPath : $_SERVER['DOCUMENT_ROOT'].'/'.$baseViewPath;
+        static::$cachePath = static::isAbsolutePath($cachePath) ? $cachePath : $_SERVER['DOCUMENT_ROOT'].'/'.$cachePath;
         static::instantiateServiceContainer();
         static::instantiateViewFactory();
         static::registerBitrixDirectives();
@@ -55,6 +54,11 @@ class BladeProvider
             'templateExt' => ['blade'],
             'function'    => 'renderBladeTemplate',
         ];
+    }
+
+    protected static function isAbsolutePath($path)
+    {
+        return $path && ($path[0] === DIRECTORY_SEPARATOR || preg_match('~\A[A-Z]:(?![^/\\\\])~i', $path) > 0);
     }
 
     /**
