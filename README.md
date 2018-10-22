@@ -6,11 +6,9 @@
 
 ## Установка
 
-1. ```composer require arrilot/bitrix-blade```
+1)```composer require arrilot/bitrix-blade```
 
-2. добавляем в init.php
-
-3. добавляем в конфиг nginx-а строчку ````location ~* /\.blade { deny all; }``` чтобы нельзя было получить исходный код шаблонов
+2) добавляем в init.php
 
 ```php
 
@@ -48,7 +46,7 @@ $compiler->directive('directiveName', function ($expression) {
 4. ```@auth``` и ```@endauth``` - сокращенная запись `<? if($USER->IsAuthorized()) ?> ... <? endif ?>`
 5. ```@guest``` и ```@endguest``` - аналогично, но проверка на неавторизованного юзера.
 6. ```@admin``` и ```@endadmin``` - аналогично, но `$USER->IsAdmin()`
-7. ```@csrf``` - сокращенная форма для <input type="hidden" name="sessid" value="{!! bitrix_sessid() !!}" />
+7. ```@csrf``` - сокращенная форма для ```<input type="hidden" name="sessid" value="{!! bitrix_sessid() !!}" />```
 8. [Директивы по работе с эрмитажем](docs/hermitage.md)
 
 ## Некоторые моменты
