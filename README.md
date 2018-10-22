@@ -6,9 +6,11 @@
 
 ## Установка
 
-1)```composer require arrilot/bitrix-blade```
+1. ```composer require arrilot/bitrix-blade```
 
-2) добавляем в init.php
+2. добавляем в init.php
+
+3. добавляем в конфиг nginx-а строчку ````location ~* /\.blade { deny all; }``` чтобы нельзя было получить исходный код шаблонов
 
 ```php
 
