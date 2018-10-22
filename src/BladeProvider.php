@@ -220,6 +220,12 @@ class BladeProvider
         $compiler->directive('admin', function () {
             return '<?php if($USER->IsAdmin()): ?>';
         });
+        $compiler->directive('csrf', function ($name = 'sessid') {
+            $name = !empty($name) ? $name : 'sessid';
+            $name = trim($name, '"');
+            $name = trim($name, "'");
+            return '<input type="hidden" name="'.$name.'" value="<?= bitrix_sessid() ?>" />';
+        });
 
         $compiler->directive('endauth', $endIf);
         $compiler->directive('endguest', $endIf);
