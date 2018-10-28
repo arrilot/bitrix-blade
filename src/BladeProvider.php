@@ -2,8 +2,11 @@
 
 namespace Arrilot\BitrixBlade;
 
+use Bitrix\Main\Config\Configuration;
+use ErrorException;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\View\Factory;
+use RuntimeException;
 
 class BladeProvider
 {
@@ -37,12 +40,13 @@ class BladeProvider
 
     /**
      * Register blade engine in Bitrix.
-     *
-     * @param string $baseViewPath
-     * @param string $cachePath
      */
-    public static function register($baseViewPath = 'local/views', $cachePath = 'bitrix/cache/blade')
+    public static function register()
     {
+        $bitrixConfig = Configuration::getValue('bitrix-blade');
+        $baseViewPath = isset($bitrixConfig['baseViewPath']) ? $bitrixConfig['baseViewPath'] : 'local/views';
+        $cachePath = isset($bitrixConfig['cachePath']) ? $bitrixConfig['cachePath'] : 'local/cache/blade';
+
         static::$baseViewPath = static::isAbsolutePath($baseViewPath) ? $baseViewPath : $_SERVER['DOCUMENT_ROOT'].'/'.$baseViewPath;
         static::$cachePath = static::isAbsolutePath($cachePath) ? $cachePath : $_SERVER['DOCUMENT_ROOT'].'/'.$cachePath;
         static::instantiateServiceContainer();
@@ -74,9 +78,34 @@ class BladeProvider
     /**
      * @return BladeCompiler
      */
-    public function getCompiler()
+    public static function getCompiler()
     {
         return static::$container['blade.compiler'];
+    }
+
+    /**
+     * Clear all compiled view files.
+     */
+    public static function clearCache()
+    {
+        $path = static::$cachePath;
+
+        if (!$path) {
+            throw new RuntimeException('Cache path is empty');
+        }
+
+        $success = true;
+        foreach (glob("{$path}/*") as $view) {
+            try {
+                if (!@unlink($view)) {
+                    $success = false;
+                }
+            } catch (ErrorException $e) {
+                $success = false;
+            }
+        }
+
+        return $success;
     }
 
     /**
@@ -270,5 +299,13 @@ class BladeProvider
                 return '<?= \Arrilot\BitrixHermitage\Action::' . $action . '($template, ' . $expression . '); ?>';
             });
         }
+    }
+
+    /**
+     * @return string|null
+     */
+    public static function getCachePath()
+    {
+        return static::$cachePath;
     }
 }

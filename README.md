@@ -49,6 +49,28 @@ $compiler->directive('directiveName', function ($expression) {
 7. ```@csrf``` - сокращенная форма для ```<input type="hidden" name="sessid" value="{!! bitrix_sessid() !!}" />```
 8. [Директивы по работе с эрмитажем](docs/hermitage.md)
 
+## Конфигурация
+
+При необходимости пути можно поменять в конфигурации.
+.settings_extra.php
+```php
+    'bitrix-blade' => [
+        'value'    => [
+            'baseViewPath' => '/absolute/path/or/path/from/document/root', // по умолчанию 'local/views'
+            'cachePath' => '/absolute/path/or/path/from/document/root', // по умолчанию 'local/cache/blade'
+        ],
+        'readonly' => false,
+    ],
+```
+
+## Очистка кэша
+
+Для обеспечения высокой скорости работы Blade кэширует скомпилированные шаблоны в php файлы.
+В большинстве случаев чистить этот кэш самостоятельно потребности нет, потому что блейд сверяет время модификации файлов шаблонов и кэша и самостоятеьно инвалидирует этот кэш.
+Однако в некоторых случаях (например при добавлении новой пользовательской директивы), этот кэш всё-же надо сбросить.
+Делается это методом ```BladeProvider::clearCache()```
+
+
 ## Некоторые моменты
 
 1. Битрикс позволяет использовать сторонние шаблонизаторы только в шаблонах компонентов. Шаблоны сайтов только на php.
@@ -57,7 +79,6 @@ $compiler->directive('directiveName', function ($expression) {
 4. Вместо `$this` в шаблоне следует использовать `$template` - например `$template->setFrameMode(true);`
 5. Проверку `<?if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true) die();?>` прописывать в blade-шаблоне не нужно, она добавляется в скомпилированные view автоматически. Также вместе с этим выполняется и ```extract($arResult, EXTR_SKIP);```
 6. Чтобы языковой файл из шаблона подключился, его (этот языковой файл) надо назвать как обычно - `template.php`
-
 
 ## Дополнительно
 
