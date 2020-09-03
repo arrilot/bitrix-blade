@@ -2,6 +2,11 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/arrilot/bitrix-blade.svg?style=flat)](https://packagist.org/packages/Arrilot/bitrix-blade)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/arrilot/bitrix-blade/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/arrilot/bitrix-blade/)
 
+# Данный пакет больше активно не поддерживается
+
+Причина - мы больше не используем Битрикс в своих проектах.
+Если вам интересен этот проект и вы хотите заняться его поддержкой - форкните его и создайте Issue в данном репозитории чтобы мы поместили здесь ссылку на форк.
+
 # Bitrix Blade - интеграция шаблонизатора Blade в Битрикс
 
 ## Установка
