@@ -48,7 +48,7 @@ $compiler->directive('directiveName', function ($expression) {
 1. ```@bxComponent``` (старый вариант - `@component`)  - аналог ```$APPLICATION->IncludeComponent()```
 2. ```@block('key')``` и ```@endblock``` - всё что заключено между ними будет выведено в месте, где вызван метод ```$APPLICATION->ShowViewContent('key')```
 3. ```@lang('key')``` - равносильно ```{!! Bitrix\Main\Localization\Loc::getMessage('key') !!} ```
-4. ```@auth``` и ```@endauth``` - сокращенная запись `<? if($USER->IsAuthorized()) ?> ... <? endif ?>`
+4. ```@auth``` и ```@endauth``` - сокращенная запись `<?php if($USER->IsAuthorized()) ?> ... <?php endif ?>`
 5. ```@guest``` и ```@endguest``` - аналогично, но проверка на неавторизованного юзера.
 6. ```@admin``` и ```@endadmin``` - аналогично, но `$USER->IsAdmin()`
 7. ```@csrf``` - сокращенная форма для ```<input type="hidden" name="sessid" value="{!! bitrix_sessid() !!}" />```
