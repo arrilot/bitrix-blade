@@ -15,8 +15,8 @@ class BladeCompiler extends BaseCompiler
      */
     public function compileString($value)
     {
-        $result = '<?if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true) die();?>';
-        $result .= '<?if(!empty($arResult)) extract($arResult, EXTR_SKIP);?>';
+        $result = '<?php if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true) die();?>';
+        $result .= '<?php if(!empty($arResult)) extract($arResult, EXTR_SKIP);?>';
 
         return $result . parent::compileString($value);
     }
